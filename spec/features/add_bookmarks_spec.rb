@@ -9,10 +9,11 @@ feature 'Add new bookmark' do
     visit('/bookmarks/add')
 
     fill_in('url', with: 'http://www.youtube.com')
+    fill_in('title', with: 'youtube')
 
     click_button('Submit')
 
-    expect(page).to have_content "http://www.youtube.com"
+    expect(page).to have_link('youtube', href: 'http://www.youtube.com')
   end
 
 end
