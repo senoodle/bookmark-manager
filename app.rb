@@ -3,6 +3,10 @@ require 'sinatra/reloader'
 require './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
+
+  # so that we build a route for the Delete button and use the DELETE method
+  enable :sessions,  :method_override
+
   configure :development do
     register Sinatra::Reloader
   end
@@ -20,15 +24,13 @@ class BookmarkManager < Sinatra::Base
     erb :'bookmarks/add'
   end
 
-  # post '/bookmarks' do
-  #   url = params['url']
-  #   connection = PG.connect(dbname: 'bookmark_manager_test')
-  #   connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
-  #   redirect '/bookmarks'
-  # end
-  
   post '/bookmarks' do
     Bookmark.create(url: params[:url], title: params[:title])
+    redirect '/bookmarks'
+  end
+
+  delete '/bookmarks/:id' do
+    Bookmark.delete(id: params[:id])
     redirect '/bookmarks'
   end
 
