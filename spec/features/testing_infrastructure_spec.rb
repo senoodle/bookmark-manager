@@ -1,7 +1,7 @@
-RSpec.feature "Testing infrastructure" do
-  scenario 'homepage opening' do
+feature "Testing infrastructure" do
+  scenario 'homepage' do
     visit "/"
 
-    expect(page).to have_text("Testing infrastructure working!")
+    expect(page).to have_text("Hello World!")
   end
 end

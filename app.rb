@@ -12,7 +12,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/' do
-    'Testing infrastructure working!'
+    'Hello World!'
   end
 
   get '/bookmarks' do
@@ -32,6 +32,16 @@ class BookmarkManager < Sinatra::Base
   delete '/bookmarks/:id' do
     Bookmark.delete(id: params[:id])
     redirect '/bookmarks'
+  end
+
+  get '/bookmarks/:id/update' do
+    @bookmark = Bookmark.find(id: params[:id])
+    erb :"bookmarks/update"
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
+    redirect('/bookmarks')
   end
 
   # start the server if ruby file executed directly

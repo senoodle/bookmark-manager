@@ -9,7 +9,7 @@ feature 'Delete a bookmark' do
     # using capybaras first method to click button inside the first element with the class 'bookmark'
     first('.bookmark').click_button 'Delete'
 
-    # expect(current_path).to eq '/bookmarks'
+    # expect(current_path).to eq '/bookmarks' OR
     expect(page).to have_current_path('/bookmarks')
     expect(page).not_to have_link('makers academy', href: 'http://www.makersacademy.com')
   end

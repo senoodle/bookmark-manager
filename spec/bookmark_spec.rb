@@ -47,4 +47,43 @@ describe Bookmark do
       expect(bookmark.url).to eq 'http://www.youtube.com'
     end
   end
+
+  describe '.delete' do
+
+    it 'should delete the bookmark' do
+      bookmark = Bookmark.create(title: 'makers academy', url: 'http://www.makersacademy.com')
+
+      Bookmark.delete(id: bookmark.id)
+
+      expect(Bookmark.all.length).to eq 0
+    end
+  end
+
+  describe '.update' do
+
+    it 'should update the bookmark' do
+      bookmark = Bookmark.create(title: 'makers academy', url: 'http://www.makersacademy.com')
+      updated_bookmark = Bookmark.update(id: bookmark.id, title: 'makers academy 1', url: 'http://www.makersacademy1.com')
+
+      expect(updated_bookmark).to be_a Bookmark
+    expect(updated_bookmark.id).to eq bookmark.id
+    expect(updated_bookmark.title).to eq 'makers academy 1'
+    expect(updated_bookmark.url).to eq 'http://www.makersacademy1.com'
+    end
+  end
+
+
+  describe '.find' do
+    it 'should find the requested bookmark' do
+      bookmark = Bookmark.create(title: 'makers academy', url: 'http://www.makersacademy.com')
+
+      result = Bookmark.find(id: bookmark.id)
+
+      expect(result).to be_a Bookmark
+      expect(result.id).to eq bookmark.id
+      expect(result.title).to eq 'makers academy'
+      expect(result.url).to eq 'http://www.makersacademy.com'
+    end
+  end
+
 end
