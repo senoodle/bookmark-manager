@@ -11,6 +11,8 @@
 
 4. As a user, I want to update an existing bookmark.
 
+5. As a user, I want to only save valid URLs.
+
 ![Screenshot 2021-07-19 at 14 29 15](https://user-images.githubusercontent.com/81044352/126167420-dd00a6b6-0f77-4d03-a544-418b9ca00f89.png)
 
 0. Run bundle

@@ -3,7 +3,7 @@ require 'database_helpers'
 
 describe Bookmark do
 
-  let(:bookmarks) { ["http://www.makersacademy.com", "http://www.bbc.com", "http://www.google.com"] }
+  let(:bookmarks) { ["http://www.makersacademy.com", "http://www.destroyallsoftware.com", "http://www.google.com"] }
 
   describe '.all' do
     it 'returns the list of bookmarks' do
@@ -46,6 +46,12 @@ describe Bookmark do
       expect(bookmark.title).to eq 'youtube'
       expect(bookmark.url).to eq 'http://www.youtube.com'
     end
+
+    it 'does not create a new bookmark if the URL is not valid' do
+      bookmark = Bookmark.create(url: 'not a real bookmark', title: 'not a real bookmark')
+      expect(bookmark).not_to be_a Bookmark
+    end
+    
   end
 
   describe '.delete' do

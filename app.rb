@@ -1,19 +1,20 @@
 require 'sinatra/base'
-require 'sinatra/reloader'
-require './lib/bookmark'
-require_relative './database_connection_setup'
+require 'sinatra/flash'
+require 'uri'
+require_relative './lib/bookmark'
+require_relative './database_connection_setup.rb'
 
 class BookmarkManager < Sinatra::Base
-
-  # so that we build a route for the Delete button and use the DELETE method
-  enable :sessions,  :method_override
-
-  configure :development do
-    register Sinatra::Reloader
-  end
-
+  enable :sessions, :method_override
+  register Sinatra::Flash
+  
   get '/' do
     'Hello World!'
+  end
+
+  post '/bookmarks' do
+    flash[:notice] = "You must submit a valid URL." unless Bookmark.create(url: params[:url], title: params[:title])
+    redirect('/bookmarks')
   end
 
   get '/bookmarks' do
@@ -44,6 +45,8 @@ class BookmarkManager < Sinatra::Base
     Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
     redirect('/bookmarks')
   end
+
+  
 
   # start the server if ruby file executed directly
   run! if app_file == $0
